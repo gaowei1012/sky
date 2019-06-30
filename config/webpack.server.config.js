@@ -7,11 +7,15 @@ const merge = require("webpack-merge");
 const baseConfig = require("./webpack.config");
 const theme = require("../package.json").theme;
 
-const resolve = dir => path.resolve(__dirname, dir);
+// const resolve = dir => path.resolve(__dirname, dir);
+const  join = dir => path.join(__dirname, dir);
 
 const serverConfig = {
-  entry: resolve("../app/server/index.js"),
+  // entry: path.join(__dirname, '../app/server/index.js'),
+  entry: join('../app/server/index.js'),
+  // entry: resolve("../app/server/index.js"),
   output: {
+    // path: path.join(__dirname, '../server-bundle'),
     path: path.resolve(__dirname, "../server-bundle"),
     filename: "root.server.js",
     publicPath: "/static/"

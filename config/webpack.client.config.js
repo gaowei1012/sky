@@ -13,14 +13,14 @@ const baseConfig = require("./webpack.config");
 const isDev = process.env.NODE_ENV === "development";
 const isProd = process.env.NODE_ENV === "production";
 
-const resolve = dir => path.resolve(__dirname, dir);
+// const resolve = dir => path.resolve(__dirname, dir);
 
 const clientConfig = {
-  entry: resolve("../client/index.js"),
-  // entry: path.join(__dirname, "../src/client/index.js"),
+  // entry: resolve("../app/client/index.js"),
+  entry: path.join(__dirname, "../app/client/app.js"),
   output: {
-    path: resolve("../public/static"),
-    // path: path.join(__dirname, "../public/static/"),
+    // path: resolve("../public/static"),
+    path: path.join(__dirname, "../public/static/"),
     filename: "js/client.[hash:5].js",
     chunkFilename: "js/[name].js",
     publicPath: "/static/"
@@ -58,7 +58,7 @@ if (isDev) {
   ];
   clientConfig.entry = [
     "react-hot-loader/patch",
-    path.join(__dirname, "../src/client/index.js")
+    path.join(__dirname, "../app/client/app.js")
   ];
   clientConfig.output = {
     path: path.join(__dirname, "../dev-public"),
