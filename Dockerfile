@@ -24,7 +24,7 @@ EXPOSE 80
 # 删除/app目录
 RUN npm install \
     && npm run start:build \
-    && cp -r ./public /var/www/html \
+    && cp -r ./public/static /var/www/html \
     && rm -rf /app
 
 # 以前台的方式启动 nginx
