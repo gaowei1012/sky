@@ -12,8 +12,8 @@ import { Provider } from 'react-redux'
 import Container from '../containers'
 
 const serverRender = (req, store, context) => {
-  const template = fs.readFileSync(process.cwd() + '/public/static/index.html', 'utf8')
-  const vendorCss = fs.readFileSync(process.cwd() + '/public/static/css/vendors.css', 'utf8')
+  const template = fs.readFileSync(process.cwd() + '/public/index.html', 'utf8')
+  const vendorCss = fs.readFileSync(process.cwd() + '/public/css/vendors.css', 'utf8')
   const content = renderToString(
     <Provider store={store}>
       <StaticRouter location={req.path} context={context}>

@@ -14,10 +14,10 @@ const isProd = process.env.NODE_ENV === 'production'
 const clientConfig = {
     entry: path.join(__dirname, '../app/client/app.js'),
     output: {
-        path: path.join(__dirname, '../public/static/'),
+        path: path.join(__dirname, '../public/'),
         filename: 'js/client.[hash:5].js',
         chunkFilename: "js/[name].js",
-        publicPath: '/static/'
+        // publicPath: '/static/'
     },
     module: {
         rules: [
@@ -141,7 +141,7 @@ if(isProd) {
         }),
         new HtmlWebpackPlugin({
             title: '执念の栈',
-            filename: path.join(__dirname, '../public/static/index.html'),
+            filename: path.join(__dirname, '../public/index.html'),
             template: path.join(__dirname, '../dev-public/index.html'),
             // favicon: path.join(__dirname, '../dev-public/favicon.ico'),
         })
