@@ -1,21 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 
-const Container = () => {
-
-  const [ count, setCount ] = useState(0)
-
-  useEffect(() => {
-    setTimeout(() => {
-      console.log(count)
-    })
-  }, [])
-
-  return (
-    <>
-      <p>{count}</p>
-      <button onClick={() => setCount(count+1)}>+</button>
-    </>
-  )
+class Container extends Component {
+  render() {
+    <div>
+      this is container
+    </div>
+  }
 }
 
-export default Container
+export default withRouter(Container)

@@ -1,37 +1,57 @@
-import Koa from 'koa'
-import Router from 'koa-router'
-import Static from 'koa-static'
-import compression from 'compression'
+import express from 'express'
+const compression = require('compression')
+import serverRender from './render'
+import { matchRoutes } from 'react-router-config'
+import routes from '../routes'
+import serverStore from "../store/serverStore"
+import proxy from 'express-http-proxy'
 
+const isDev = process.env.NODE_ENV === 'development'
+const app = express()
 
-const app = new Koa()
-const router = new Router()
-
-const isDev = process.env.NODE_NEV === 'development'
-
-app.use(Static('public'))
-if (isDev) {
+app.use(express.static('public'))
+if (!isDev) {
   app.use(compression())
 }
 
-app.use(router.routes())
-app.use(router.allowedMethods())
+app.use('/api', proxy('http://127.0.0.1:3000', {
+  proxyReqPathResolver: function (req) {
+    // console.log('代理：', req.url);
+    return '/api' + req.url
+  }
+}));
 
-router.get('/', async (ctx, next) => {
-  ctx.body = 'home page'
-  await next()
-})
-
-router.all('*', async (ctx, next) => {
-  ctx.header("Access-Control-Allow-Origin", "*");
-  ctx.header("Access-Control-Allow-Headers", "X-Requested-With");
-  ctx.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-  ctx.header("X-Powered-By",' 3.2.1')
+app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+  res.header("X-Powered-By",' 3.2.1')
   // res.header("Content-Type", "application/json;charset=utf-8");
-  await next();
+  next();
 })
 
-
-app.listen(8082, () => {
-  console.log('server stated port: 8082')
+app.get('*', (req, res) => {
+  const context = {css: []}
+  const store = serverStore()
+  const matchedRoutes = matchRoutes(routes, req.path)
+  const promises = []
+  for (const item of matchedRoutes) {
+    const { id } =  item.match.params
+    if (item.route.loadData) {
+      const promise = new Promise((resolve, reject) => {
+        if (id) {
+          item.route.loadData(store, id).then(resolve).catch(resolve)
+        } else {
+          item.route.loadData(store).then(resolve).catch(resolve)
+        }
+      })
+      promises.push(promise)
+    }
+  }
+  Promise.all(promises).then(() => {
+    res.send(serverRender(req, store, context))
+  })
+})
+app.listen(8081, () => {
+    console.log('server listening on port 8081')
 })

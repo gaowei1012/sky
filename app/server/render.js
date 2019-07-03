@@ -2,33 +2,33 @@
  * react ssr server render
  */
 
-import fs from "fs";
-import React from "react";
-import { renderToString } from "react-dom/server";
-import { StaticRouter } from "react-router-dom";
-import Containers from "./../containers";
+import React from 'react'
+import fs from 'fs'
+import { renderToString } from 'react-dom/server'
+import { StaticRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import Container from '../containers'
 
 const serverRender = (req, store, context) => {
-  const template = fs.readFileSync(
-    process.cwd() + "/public/static/index.html",
-    "utf8"
-  );
-  const vendorCss = fs.readFileSync(
-    process.cwd() + "/public/static/css/vendors.css",
-    "utf8"
-  );
-
+  const template = fs.readFileSync(process.cwd() + '/public/static/index.html', 'utf8')
+  const vendorCss = fs.readFileSync(process.cwd() + '/public/static/css/vendors.css', 'utf8')
   const content = renderToString(
-    <StaticRouter location={req.path} context={context}>
-      <Containers />
-    </StaticRouter>
-  );
+    <Provider store={store}>
+      <StaticRouter location={req.path} context={context}>
+        <Container/>
+      </StaticRouter>
+    </Provider>
+  )
+  const cssStr = context.css.length ? context.css.join('\n') : ''
+  const state = JSON.stringify(store.getState()).replace(/<script/g, '%%script%%').replace(/<\/script/g, '%%/script%%')
+  const initialState = `
+    window.context = {
+      INITIAL_STATE: ${state}
+    }
+`
+  return template.replace('<!--app-->', content)
+    .replace('server-render-css', cssStr + vendorCss)
+    .replace('/*initial-state*/', initialState)
+}
 
-  const cssStr = context.css.length ? context.css.join("\n") : "";
-
-  return template
-    .replace("<!--app-->", content)
-    .replace("server-render-css", cssStr + vendorCss);
-};
-
-export default serverRender;
+export default serverRender
