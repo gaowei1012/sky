@@ -1,7 +1,9 @@
 /**
- * react ssr server render
+ * Author: Zhou Ht
+ * Date: 2018/12/6 0006
+ * Time: 23:28
+ *
  */
-
 import React from 'react'
 import fs from 'fs'
 import { renderToString } from 'react-dom/server'

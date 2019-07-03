@@ -1,15 +1,18 @@
-import { createStore, applyMiddleware, compose } from 'redux' 
-import rootReducers from '../reducers'
+/**
+ * Author: NERO
+ * Date: 2019/3/23 0023
+ * Time: 16:01
+ *
+ */
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-// import logger from 'redux-logger'
+import logger from 'redux-logger'
+import rootReducer from '../reducers'
 
-const serverStore = createStore(
-  rootReducers,
+const serverStore = () => createStore(
+  rootReducer,
   compose(
-    applyMiddleware(
-      // logger,
-      thunk
-    )
+    applyMiddleware(thunk, logger)
   )
 )
 
