@@ -1,16 +1,16 @@
-const mysql = require('mysql')
-const config = require('../config/idnex')
+const mysql = require("mysql");
+const config = require("../config/idnex");
 
 const Pool = mysql.createPool({
-  host     : config.database.HOST,
-  user     : config.database.USERNAME,
-  password : config.database.PASSWORD,
-  database : config.database.DATABASE,
-  port     : config.database.PORT
-})
+  host: config.database.HOST,
+  user: config.database.USERNAME,
+  password: config.database.PASSWORD,
+  database: config.database.DATABASE,
+  port: config.database.PORT
+});
 
 /**
- * 
+ *
  * @param {SQL} sql sql 语句
  * @param {String} values values
  */
@@ -18,20 +18,20 @@ let query = (sql, values) => {
   return new Promise((resolve, reject) => {
     Pool.getConnection(function(err, connection) {
       if (err) {
-        reject(err)
+        reject(err);
       } else {
         connection.query(sql, values, (err, rows) => {
           if (err) {
-            reject(err)
+            reject(err);
           } else {
-            resolve(rows)
+            resolve(rows);
           }
-          connection.release()
-        })
+          connection.release();
+        });
       }
-    })
-  })
-}
+    });
+  });
+};
 
 let posts = `
   create table if not exists posts (
@@ -47,7 +47,7 @@ let posts = `
     pv VARCHAR(40) NOT NULL DEFAULT '0' COMMENT '浏览量',
     PRIMARY KEY (id)
   )
-`
+`;
 
 let articleDetail = `
   create table if not exists articleDetail (
@@ -59,7 +59,7 @@ let articleDetail = `
     createTime VARCHAR(100) NOT NULL COMMENT '创建时间',
     PRIMARY KEY ( id )
   )
-`
+`;
 
 let comment = `
   create table if not exists comment (
@@ -69,15 +69,26 @@ let comment = `
     content TEXT(0) NOT NULL COMMENT '评论内容',
     PRIMARY KEY ( id )
   )
-`
+`;
 
-let createTable = (sql) => {
-  return query(sql, [])
+let createTable = sql => {
+  return query(sql, []);
+};
+
+createTable(articleDetail);
+createTable(posts);
+createTable(comment);
+
+// 发表文章
+exports.insterPosts = value => {
+  let _sql = `insert into posts set author=?, title=?, content=?, createTime=?, md=?, comments=?;`;
+  return query(_sql, value);
+};
+
+// 所有文章
+exports.getArticle = value => {
+  let _sql = `select * from posts;`;
+  return query(_sql, value)
 }
 
-createTable(articleDetail)
-createTable(posts)
-createTable(comment)
-
-
-module.exports = { query }
+module.exports = { query };
