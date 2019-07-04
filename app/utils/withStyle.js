@@ -5,7 +5,7 @@ export default (DecoratedComponent, styles) => {
     componentWillMount() {
       //@TODO 不在路由之内的组件，无法获得staticContext
       if (this.props.staticContext) {
-        const css = styles._getCss().replace('static/img', './img')
+        const css = styles._getCss().replace('/img', './img')
         this.props.staticContext.css.push(css)
       }
     }
