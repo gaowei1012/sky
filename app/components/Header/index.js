@@ -1,9 +1,5 @@
-/**
- * Author: Zhou Ht
- * Date: 2018/12/6 0006
- * Time: 23:13
- *
- */
+
+
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Menu, Icon, Drawer, Dropdown } from 'antd';

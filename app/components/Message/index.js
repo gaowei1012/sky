@@ -1,9 +1,5 @@
-/**
- * Author: NERO
- * Date: 2019/5/23 0023
- * Time: 23:08
- *
- */
+
+
 import React from 'react'
 import { connect } from 'react-redux'
 import { Form, Input, Button, message } from 'antd'

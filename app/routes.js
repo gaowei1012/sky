@@ -1,18 +1,13 @@
-/**
- * Author: Zhou Ht
- * Date: 2018/12/6 0006
- * Time: 23:11
- *
- */
-import { multiLoadData } from './utils'
-import React, { Suspense } from 'react'
-import Home from './containers/Home'
+
+// import { multiLoadData } from './utils'
+// import React, { Suspense } from 'react'
+// import Home from './containers/Home'
 import Work from './containers/Work'
 import Article from './containers/Article'
 import ArticalDetail from './containers/ArticalDetail'
 import About from './containers/About'
-import Container from './containers/index'
-import Message from './components/Message'
+// import Container from './containers/index'
+// import Message from './components/Message'
 
 // @TODO 懒加载开发
 /*const About = React.lazy(() => import('./containers/About'))

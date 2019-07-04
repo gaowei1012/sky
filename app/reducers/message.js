@@ -1,9 +1,4 @@
-/**
- * Author: NERO
- * Date: 2019/6/1 0001
- * Time: 17:36
- *
- */
+
 import * as ActionType from '../actions/message'
 
 const initialState = {

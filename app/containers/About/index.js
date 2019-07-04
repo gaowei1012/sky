@@ -1,9 +1,4 @@
-/**
- * Author: Zhou Ht
- * Date: 2018/12/6 0006
- * Time: 23:20
- *
- */
+
 import React from 'react'
 import showdown from 'showdown'
 import './style/index.less'

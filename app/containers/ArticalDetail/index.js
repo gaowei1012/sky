@@ -1,9 +1,4 @@
-/**
- * Author: NERO
- * Date: 2019/3/19 0019
- * Time: 22:43
- *
- */
+
 import React from 'react'
 import { connect } from 'react-redux'
 import showdown from 'showdown'
@@ -74,8 +69,8 @@ class Index extends React.Component {
         <meta
           name="keywords"
           content="前端 web前端 React Vue node.js
-           Angular 前端开发 网站建设 IT咨询 个人网站 React服务端渲染 设计 ui设计 ps photoshop 平面设计 网页设计 前端"/>
-        <meta name="description" content="NERO的个人网站，分享前端知识与设计作品"/>
+           前端开发 网站建设 IT咨询 个人网站 React服务端渲染 设计 ui设计 ps photoshop 平面设计 网页设计 前端"/>
+        <meta name="description" content="执念的个人网站，分享前端知识与设计作品"/>
         <title>文章详情</title>
       </Helmet>
 

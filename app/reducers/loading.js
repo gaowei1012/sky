@@ -1,11 +1,5 @@
 import * as ActionType from "../actions/tags";
 
-/**
- * Author: NERO
- * Date: 2019/6/6 0006
- * Time: 22:14
- *
- */
 const initialState = {
   globalLoading: false,
 }

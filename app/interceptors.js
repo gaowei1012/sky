@@ -1,9 +1,4 @@
-/**
- * Author: NERO
- * Date: 2019/4/28 0028
- * Time: 23:09
- *
- */
+
 import axios from 'axios';
 import clientStore from './store/clientStore'
 import { message } from 'antd'

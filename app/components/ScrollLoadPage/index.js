@@ -1,9 +1,5 @@
-/**
- * Author: NERO
- * Date: 2019/6/6 0006
- * Time: 21:08
- *
- */
+
+
 import React from 'react'
 import { Spin, Icon } from 'antd'
 import './index.less'

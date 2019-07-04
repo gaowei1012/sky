@@ -1,9 +1,3 @@
-/**
- * Author: Zhou Ht
- * Date: 2018/11/28 0028
- * Time: 23:42
- *
- */
 const path = require('path')
 const merge = require('webpack-merge')
 const baseConfig = require('./webpack.config')

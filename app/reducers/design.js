@@ -1,9 +1,4 @@
-/**
- * Author: NERO
- * Date: 2019/3/20 0020
- * Time: 22:45
- *
- */
+
 import * as ActionType from '../actions/design'
 
 const initialState = {

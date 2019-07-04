@@ -1,9 +1,4 @@
-/**
- * Author: NERO
- * Date: 2019/3/20 0020
- * Time: 22:59
- *
- */
+
 export const SPECIAL_CHARACTER_REG = /[~!@#$%^&*()/\|<>;_+-=\[\]{}]/g;
 export const PAGE = 0;
 export const SIZE = 10;

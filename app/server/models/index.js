@@ -1,9 +1,4 @@
-/**
- * Author: NERO
- * Date: 2019/3/24 0024
- * Time: 18:16
- *
- */
+
 class BaseModel {
   constructor(data, message) {
     if (typeof data === 'string') {

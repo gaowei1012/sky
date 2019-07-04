@@ -1,9 +1,5 @@
-/**
- * Author: Zhou Ht
- * Date: 2018/12/15 0015
- * Time: 18:12
- *
- */
+
+
 import React from 'react'
 import { connect } from 'react-redux'
 import { getArticleList, clearArticleListData } from '../../actions/article'
