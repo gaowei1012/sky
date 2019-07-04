@@ -3,6 +3,8 @@ const controller = require('../controller/article')
 
 router.get('/', controller.getArticle)
 
-router.post('/article', controller.getPosts)
+router.get('/api/article', controller.getPosts)
+
+router.get('/api/article/insert', controller.insertPosts)
 
 module.exports = router

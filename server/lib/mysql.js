@@ -38,7 +38,7 @@ let posts = `
     id INT NOT NULL AUTO_INCREMENT,
     author VARCHAR(100) NOT NULL COMMENT '文章作者',
     title TEXT(0) NOT NULL COMMENT '文章标题',
-    content TEXT(0) NOT NULL COMMENT '文章内容',
+    content TEXT(0) NOT NULL COMMENT '评论内容',
     createTime VARCHAR(100) NOT NULL COMMENT '发表时间',
     lastTime VARCHAR(100) NOT NULL COMMENT '最后修改时间',
     uid VARCHAR(40) NOT NULL COMMENT '用户id',
@@ -81,7 +81,7 @@ createTable(comment);
 
 // 发表文章
 exports.insterPosts = value => {
-  let _sql = `insert into posts set author=?, title=?, content=?, createTime=?, md=?, comments=?;`;
+  let _sql = `insert into posts set id=? author=?, title=?, content=?, createTime=?, lastTime=?, uid=?, md=?, comments=?, pv=?;`;
   return query(_sql, value);
 };
 
@@ -91,4 +91,4 @@ exports.getArticle = value => {
   return query(_sql, value)
 }
 
-module.exports = { query };
+

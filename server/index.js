@@ -5,6 +5,7 @@ const MysqlStore = require("koa-mysql-session");
 const session = require("koa-session-minimal");
 const logger = require("koa-logger");
 const json = require("koa-json");
+const cors = require('koa2-cors');
 const config = require("./config/idnex");
 
 const app = new Koa();
@@ -21,6 +22,7 @@ app.use(session({
   store: new MysqlStore(sessionMysqlConfig)
 }))
 
+app.use(cors());
 app.use(bodyParser());
 app.use(json());
 app.use(logger());
