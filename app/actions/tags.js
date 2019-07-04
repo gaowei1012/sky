@@ -1,9 +1,4 @@
-/**
- * Author: NERO
- * Date: 2019/5/19 0019
- * Time: 11:51
- *
- */
+
 import axios from 'axios'
 import {API_SERVER} from '../constants'
 

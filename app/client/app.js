@@ -1,9 +1,3 @@
-/**
- * Author: Zhou Ht
- * Date: 2018/11/28 0028
- * Time: 23:32
- *
- */
 import React from 'react'
 import ReactDom from 'react-dom'
 import Container from '../containers'
