@@ -75,9 +75,9 @@ class Index extends React.Component {
       </Helmet>
       <ScrollToTop element={"article"}/>
         <div className="banner">
-          <div className="inner">
+          {/* <div className="inner">
             <img src={logo} alt=""/>
-          </div>
+          </div> */}
           <img src={articleBg} alt=""/>
         </div>
         <div className="inner">

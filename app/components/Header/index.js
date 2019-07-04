@@ -43,7 +43,8 @@ class Header extends React.Component {
       })
     }
     handleScroll = () => {
-      if (window.scrollY > 570) {
+      console.log('###')
+      if (window.scrollY > 270) {
           this.refs.header.style.background = "#160e0f";
       }else{
         this.refs.header.style.background = "rgba(22,14,15,0)";
@@ -71,13 +72,13 @@ class Header extends React.Component {
           <Link to='/'>首页</Link>
         </Menu.Item>*/}
         <Menu.Item key="/">
-          <Link to='/'>技术文章</Link>
+          <Link to='/'>全部文章</Link>
         </Menu.Item>
         <Menu.Item key="/work">
-          <Link to='/work'>设计</Link>
+          <Link to='/work'>作品集</Link>
         </Menu.Item>
         <Menu.Item key="/about">
-          <Link to='/about'>关于</Link>
+          <Link to='/about'>我的</Link>
         </Menu.Item>
       </Menu>
       const mobileMenu = () => <Menu
@@ -88,13 +89,13 @@ class Header extends React.Component {
           <Link to='/'>首页</Link>
         </Menu.Item>*/}
         <Menu.Item key="/">
-          <Link to='/'>文章</Link>
+          <Link to='/'>全部文章</Link>
         </Menu.Item>
         <Menu.Item key="/work">
-          <Link to='/work'>作品</Link>
+          <Link to='/work'>作品集</Link>
         </Menu.Item>
         <Menu.Item key="/about">
-          <Link to='/about'>关于</Link>
+          <Link to='/about'>我的</Link>
         </Menu.Item>
       </Menu>
       return (<div id="header">
