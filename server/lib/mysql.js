@@ -98,7 +98,7 @@ exports.updateArticle = value => {
 } 
 
 // 删除文章
-exports.removeArticle = id => {
+exports.deleteArticle = id => {
   let _sql = `delete from posts where id=${id};`
   return query(_sql)
 }

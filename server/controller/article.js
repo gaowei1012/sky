@@ -1,46 +1,96 @@
-const articleModel = require('../lib/mysql')
-const moment = require('moment')
-const md = require('markdown-it')()
-
+const articleModel = require("../lib/mysql");
+const moment = require("moment");
+const md = require("markdown-it")();
 
 exports.getArticle = async ctx => {
-  ctx.redirect('/article')
-}
+  // 跳转回article页面
+  ctx.redirect("/");
+};
 
-exports.getPosts = async (ctx, next) => {
-  //ctx.redirect('/posts')
-  ctx.body = 'get posts'
+// 更新文章
+exports.insertArticle = async ctx => {
+  let { title, content, createTime, lastTime, mdx, comment } = ctx.parmas;
 
-  await next
-}
+  let createTime = moment().format("YYYY:MM:DD");
+  let lastTime = createTime;
 
-exports.insertPosts = async ctx => {
-  let id = 122
-  let author = 'anan'
-  let createTime = 2010200
-  let title = 'react'
-  let content = 'nnmsm'
-  let lastTime = 202002
-  let mdxx = 'pingshi'
-  let uid = 'ddss'
-  let comments = 0
-  let pv = 0
-  // let = md 
-  // let author = '执念'
-  // let id = ctx.session.id;
-  // let createTime = moment().format('MMMM Do YYYY, h:mm:ss a');
+  let result = await articleModel.insterPosts([
+    title,
+    content,
+    createTime,
+    lastTime,
+    md.render(mdx),
+    comment
+  ]);
+  if (result) {
+    ctx.body = {
+      code: 1,
+      message: "文章发表成功"
+    };
+  } else {
+    ctx.body = {
+      code: -1,
+      message: "文章发表失败"
+    };
+  }
+};
 
-  await articleModel.insterPosts([id, author, title, content, createTime, lastTime, uid, md.render(mdxx), comments, pv])
-    .then(() => {
-      ctx.body = {
-        code: 1,
-        message: '发表文章成功'
-      }
-    })
-    .catch(() => {
-      ctx.body = {
-        code: -1,
-        message: '发表文章失败'
-      }
-    })
-}
+// 获取全部文章
+exports.getAllArtcile = async ctx => {
+  // 拿到全部文章并返回
+  let result = await articleModel.getArticle();
+  console.log(result);
+  if (result) {
+    ctx.body = {
+      code: 1,
+      result
+    };
+  } else {
+    ctx.body = {
+      code: -1,
+      message: "查询文出错"
+    };
+  }
+};
+
+// 更新一篇文章
+exports.updateArticle = async ctx => {
+  let { title, content, mdx } = ctc.parmas;
+  let id = ctx.session.id; // 拿到当前用户id
+
+  let result = await articleModel.updateArticle([
+    title,
+    content,
+    md.render(mdx),
+    id
+  ]);
+  if (result) {
+    ctx.body = {
+      code: 1,
+      result
+    };
+  } else {
+    ctx.body = {
+      code: -1,
+      message: "更新文章失败"
+    };
+  }
+};
+
+// 删除一篇文章
+exports.deleteArticle = async ctx => {
+  let id = ctx.session.id; // 拿到当前用户的id
+  let result = await articleModel.deleteArticle([id]);
+  if (result) {
+    ctx.body = {
+      code: 1,
+      result
+    };
+  } else {
+    ctx.body = {
+      code: -1,
+      message: '删除失败'
+    };
+  }
+};
+
