@@ -91,4 +91,26 @@ exports.getArticle = value => {
   return query(_sql, value)
 }
 
+// 更新一篇文章
+exports.updateArticle = value => {
+  let _sql = `update posts set title=?, content=?, md=? where id=?;`;
+  return query(_sql, value)
+} 
 
+// 删除文章
+exports.removeArticle = id => {
+  let _sql = `delete from posts where id=${id};`
+  return query(_sql)
+}
+
+// 添加评论
+exports.addCommentInsert = value => {
+  let _sql = `insert into comment set name=?, emial=?, content=?;`;
+  return query(_sql, value)
+}
+
+// 删除评论
+exports.removeComment = id => {
+  let _sql = `delete from comment where id=${id};`;
+  return query(_sql)
+}
