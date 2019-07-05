@@ -9,7 +9,7 @@ exports.getArticle = async ctx => {
 
 // 更新文章
 exports.insertArticle = async ctx => {
-  let { title, content, createTime, lastTime, mdx, comment } = ctx.parmas;
+  let { title, content, mdx, comment } = ctx.parmas;
 
   let createTime = moment().format("YYYY:MM:DD");
   let lastTime = createTime;

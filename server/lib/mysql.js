@@ -33,6 +33,16 @@ let query = (sql, values) => {
   });
 };
 
+let users = `
+  create table if not exists users (
+    id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(100) NOT NULL COMMENT '用户名',
+    password VARCHAR(100) NOT NULL COMMENT '密码',
+    phone INT NOT NULL COMMENT '手机号',
+    PRIMARY KEY (id)
+  );
+`;
+
 let posts = `
   create table if not exists posts (
     id INT NOT NULL AUTO_INCREMENT,
@@ -75,9 +85,22 @@ let createTable = sql => {
   return query(sql, []);
 };
 
+createTable(users)
 createTable(articleDetail);
 createTable(posts);
 createTable(comment);
+
+// 用户注册
+exports.insertUser = value => {
+  let _sql = `insert into users set username=?, password=?, phone=?;`;
+  return query(_sql, value)
+}
+
+// 用户登录
+exports.registerUser = value => {
+  let _sql = `select users where username=?, password=?;`;
+  return query(_sql, value)
+}
 
 // 发表文章
 exports.insterPosts = value => {
