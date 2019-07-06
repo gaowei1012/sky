@@ -96,10 +96,10 @@ exports.insertUser = value => {
   return query(_sql, value)
 }
 
-// 用户登录
-exports.registerUser = value => {
-  let _sql = `select users where username=?, password=?;`;
-  return query(_sql, value)
+// 用户注册
+exports.findOneceUser = name => {
+  let _sql = `select users where user=${name};`;
+  return query(_sql)
 }
 
 // 发表文章

@@ -1,6 +1,8 @@
 const Qcloudsms = require('qcloudsms_js');
 const Redis = require('koa-redis');
 const { sms, redis } = require('../utils/config');
+const bcrypt = require('bcryptjs');
+const userModel = require('./../lib/mysql');
 
 // create redis store
 const Store = new Redis().client;
@@ -83,9 +85,51 @@ exports.getVerify = async (ctx, next) => {
 
 }
 
+exports.insertSigup = async (ctx, next) => {
+  let {username, password, code, phone} = ctx.request.body;
+  if(code) {
+    const saveExpire = await Store.hget(`nodecode:${username}`, 'expire');
+    const saveCode = await Store.hget(`nodecode:${username}, 'code`)
 
+    if (code === saveCode) {
+      if(new Date().getTime() - saveExpire > 0) {
+        ctx.body = {
+          code: -1,
+          message: '验证码已过期,请重新获取'
+        }
+        return false;
+      }
+    } else {
+      ctx.body = {
+        code: -1,
+        message: '请填写正确的验证码'
+      }
+      return false;
+    }
+  } else {
+    ctx.body = {
+      code: -1,
+      message: '请填写验证码'
+    }
+  }
 
-exports.userInsert = async ctx => {
-  let { username, password, phone } = ctx.request.body;
+  // 注册
+  let salt = bcrypt.genSaltSync(10)
+  let newPassword = bcrypt.hashSync(password, salt)
+  let newPhone = bcrypt.hashSync(phone, salt)
+  const result = await userModel.insertUser([username, newPassword, newPhone])
 
+  if (result) {
+    ctx.body = {
+      code: 1,
+      message: '注册成功'
+    }
+  } else {
+    ctx.body = {
+      code: -1,
+      message: '注册失败'
+    }
+  }
+
+  await next()
 }

@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-generic-session": "^2.0.1",
