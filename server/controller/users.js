@@ -3,7 +3,7 @@ const Redis = require('koa-redis');
 const { sms, redis } = require('../utils/config');
 const bcrypt = require('bcryptjs');
 const userModel = require('./../lib/mysql');
-const salt = require('../utils/salt');
+const { getSalt, hashPass } = require('../utils/salt');
 
 // create redis store
 const Store = new Redis().client;
@@ -86,7 +86,7 @@ exports.getVerify = async (ctx, next) => {
 
 }
 
-exports.insertSigup = async (ctx, next) => {
+exports.insertSignup = async (ctx, next) => {
   let {username, password, code, phone} = ctx.request.body;
   if(code) {
     const saveExpire = await Store.hget(`nodecode:${username}`, 'expire');
@@ -115,9 +115,11 @@ exports.insertSigup = async (ctx, next) => {
   }
 
   // 注册
-  let salt = bcrypt.genSaltSync(10)
-  let newPassword = bcrypt.hashSync(password, salt)
-  let newPhone = bcrypt.hashSync(phone, salt)
+  // let salt = bcrypt.genSaltSync(10)
+  // let newPassword = bcrypt.hashSync(password, salt)
+  let newPassword = hashPass(password, getSalt)
+  let newPhone = hashPass(phone, getSalt)
+  // let newPhone = bcrypt.hashSync(phone, salt)
   const result = await userModel.insertUser([username, newPassword, newPhone])
 
   if (result) {
@@ -139,7 +141,7 @@ exports.insertSigup = async (ctx, next) => {
 exports.userSignin = async ctx => {
   let { username, password } = ctx.request.body;
 
-  let newPassword = await salt(password)
+  let newPassword = await getSalt(password);
 
   let result = await userModel.findOneceUser([username, newPassword])
 

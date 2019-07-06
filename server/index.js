@@ -1,5 +1,4 @@
 const Koa = require("koa");
-// const Router = require("koa-router");
 const bodyParser = require("koa-bodyparser");
 const MysqlStore = require("koa-mysql-session");
 const sessionMysql = require("koa-session-minimal");
@@ -35,7 +34,8 @@ app.use(json());
 app.use(logger());
 
 // routes
-app.use(require('./api/article').routes())
+app.use(require('./api/article').routes());
+app.use(require('./api/users').routes());
 
 app.listen(3030, () => {
   console.log("server statrd port 3030");
