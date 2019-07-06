@@ -96,7 +96,7 @@ exports.insertUser = value => {
   return query(_sql, value)
 }
 
-// 用户注册
+// 用户登录
 exports.findOneceUser = name => {
   let _sql = `select users where user=${name};`;
   return query(_sql)

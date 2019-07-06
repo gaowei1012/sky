@@ -3,6 +3,7 @@ const Redis = require('koa-redis');
 const { sms, redis } = require('../utils/config');
 const bcrypt = require('bcryptjs');
 const userModel = require('./../lib/mysql');
+const salt = require('../utils/salt');
 
 // create redis store
 const Store = new Redis().client;
@@ -132,4 +133,25 @@ exports.insertSigup = async (ctx, next) => {
   }
 
   await next()
+}
+
+
+exports.userSignin = async ctx => {
+  let { username, password } = ctx.request.body;
+
+  let newPassword = await salt(password)
+
+  let result = await userModel.findOneceUser([username, newPassword])
+
+  if (result) {
+    ctx.body = {
+      code: 1,
+      message: '登陆成功'
+    }
+  } else {
+    ctx.body = {
+      code: -1,
+      message: '登录失败'
+    }
+  }
 }
