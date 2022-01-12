@@ -20,7 +20,7 @@
     "koa-router": "^7.4.0",
     "koa-session": "^5.12.0",
     "koa2-cors": "^2.0.6",
-    "markdown-it": "^8.4.2",
+    "markdown-it": "^12.3.2",
     "mysql": "^2.17.1",
     "nodemon": "^1.19.1",
     "qcloudsms_js": "^0.1.1",
